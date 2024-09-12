@@ -89,11 +89,12 @@ genre (optional)
 ## Installation
 ### Clone the repository:
 
-*git clone https://github.com/yourusername/book-management-api.git*
+*git clone https://github.com/Poloutinho/Test-for-Acid-Soft.git*
 
 Navigate to the project directory:
 
 cd book-management-api
+
 ### Build the project using Maven:
 
 *mvn clean install*
