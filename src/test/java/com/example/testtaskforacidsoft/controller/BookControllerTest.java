@@ -13,6 +13,7 @@ import com.example.testtaskforacidsoft.model.Book;
 import com.example.testtaskforacidsoft.repository.BookRepository;
 import com.example.testtaskforacidsoft.service.BookService;
 import java.util.Collections;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,8 +49,6 @@ public class BookControllerTest {
 
     @BeforeEach
     public void setUp() {
-        bookRepository.deleteAll();
-
         bookDto = new BookDto();
         bookDto.setTitle("Test Book");
         bookDto.setAuthor("Test Author");
@@ -61,6 +60,11 @@ public class BookControllerTest {
         bookRepository.save(book);
 
         Assertions.assertTrue(bookRepository.findById(book.getId()).isPresent());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        bookRepository.deleteAll();
     }
 
     @Test

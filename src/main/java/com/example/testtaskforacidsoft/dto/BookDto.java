@@ -25,7 +25,4 @@ public class BookDto {
     @NotBlank(message = "ISBN is required")
     @Size(min = 13, max = 13, message = "ISBN must be exactly 13 characters long")
     private String isbn;
-
-    @NotNull(message = "isDeleted is required")
-    private boolean isDeleted = false;
 }
