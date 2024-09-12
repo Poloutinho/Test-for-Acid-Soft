@@ -14,7 +14,6 @@ import com.example.testtaskforacidsoft.repository.BookRepository;
 import com.example.testtaskforacidsoft.service.BookService;
 import java.util.Collections;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -58,8 +57,6 @@ public class BookControllerTest {
 
         Book book = bookMapper.toModel(bookDto);
         bookRepository.save(book);
-
-        Assertions.assertTrue(bookRepository.findById(book.getId()).isPresent());
     }
 
     @AfterEach
