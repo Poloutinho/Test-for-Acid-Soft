@@ -105,7 +105,3 @@ To run the application, use the following command:
 *mvn spring-boot:run*
 
 The API will be available at http://localhost:8080/api/books.
-
-### Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.

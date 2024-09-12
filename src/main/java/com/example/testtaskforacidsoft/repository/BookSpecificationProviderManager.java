@@ -1,10 +1,9 @@
 package com.example.testtaskforacidsoft.repository;
 
 import com.example.testtaskforacidsoft.model.Book;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component

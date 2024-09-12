@@ -2,10 +2,9 @@ package com.example.testtaskforacidsoft.repository.specification;
 
 import com.example.testtaskforacidsoft.model.Book;
 import com.example.testtaskforacidsoft.repository.SpecificationProvider;
+import java.util.Arrays;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Component
 public class AuthorSpecificationProvider implements SpecificationProvider<Book> {

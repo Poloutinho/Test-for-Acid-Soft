@@ -8,12 +8,13 @@ import com.example.testtaskforacidsoft.model.Book;
 import com.example.testtaskforacidsoft.repository.BookRepository;
 import com.example.testtaskforacidsoft.repository.BookSpecificationBuilder;
 import com.example.testtaskforacidsoft.service.BookService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -23,8 +24,8 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
-    public BookDto save(Book requestDto) {
-        Book savedBook = bookRepository.save(requestDto);
+    public BookDto save(BookDto requestDto) {
+        Book savedBook = bookRepository.save(bookMapper.toModel(requestDto));
         return bookMapper.toDto(savedBook);
     }
 
@@ -63,10 +64,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable)
+    public Page<BookDto> findAll(Pageable pageable) {
+        Page<Book> bookPage = bookRepository.findAll(pageable);
+
+        List<BookDto> bookDtos = bookPage
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();
+
+        return new PageImpl<>(bookDtos, pageable, bookPage.getTotalElements());
     }
 }

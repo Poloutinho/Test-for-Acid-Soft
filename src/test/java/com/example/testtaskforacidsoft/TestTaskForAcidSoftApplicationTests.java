@@ -8,6 +8,6 @@ public class TestTaskForAcidSoftApplicationTests {
 
     @Test
     void contextLoads() {
-        // тестовий код
+
     }
 }

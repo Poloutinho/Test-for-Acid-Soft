@@ -6,6 +6,9 @@ import com.example.testtaskforacidsoft.mapper.BookMapper;
 import com.example.testtaskforacidsoft.model.Book;
 import com.example.testtaskforacidsoft.repository.BookRepository;
 import com.example.testtaskforacidsoft.service.impl.BookServiceImpl;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,12 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceImplTest {
@@ -57,7 +54,7 @@ public class BookServiceImplTest {
         Mockito.when(bookMapper.toDto(book)).thenReturn(expected);
         Mockito.when(bookRepository.save(book)).thenReturn(book);
 
-        BookDto actual = bookService.save(bookMapper.toModel(requestDto));
+        BookDto actual = bookService.save(requestDto);
 
         Assertions.assertEquals(expected, actual);
         Mockito.verify(bookRepository, Mockito.times(1)).save(book);
@@ -69,16 +66,22 @@ public class BookServiceImplTest {
         List<Book> books = new ArrayList<>();
         books.add(book);
 
-        List<BookDto> expected = new ArrayList<>();
-        expected.add(createBookDto());
+        List<BookDto> bookDtos = new ArrayList<>();
+        bookDtos.add(createBookDto());
 
         Page<Book> bookPage = new PageImpl<>(books);
+        Page<BookDto> expected = new PageImpl<>(bookDtos);
 
         Mockito.when(bookRepository.findAll(Mockito.any(Pageable.class))).thenReturn(bookPage);
         Mockito.when(bookMapper.toDto(book)).thenReturn(createBookDto());
 
-        List<BookDto> actual = bookService.findAll(Mockito.mock(Pageable.class));
-        Assertions.assertEquals(expected, actual);
+        Page<BookDto> actual = bookService.findAll(Mockito.mock(Pageable.class));
+
+        Assertions.assertEquals(expected.getContent(), actual.getContent());
+        Assertions.assertEquals(expected.getTotalElements(), actual.getTotalElements());
+        Assertions.assertEquals(expected.getNumber(), actual.getNumber());
+        Assertions.assertEquals(expected.getSize(), actual.getSize());
+
         Mockito.verify(bookRepository, Mockito.times(1))
                 .findAll(Mockito.any(Pageable.class));
     }
